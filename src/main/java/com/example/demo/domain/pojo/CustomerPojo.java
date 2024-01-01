@@ -6,14 +6,17 @@ import lombok.Setter;
 public class CustomerPojo {
 	
 	
+	private String cardId;
 	private String fullName;
 	private String email;
 	private Long numberCellPhone;
 	private Integer active;
 	private String password;
-
-
-public String getCardId() {
+	private String rol;
+	
+	
+	
+	public String getCardId() {
 		return cardId;
 	}
 	public void setCardId(String cardId) {
@@ -49,7 +52,17 @@ public String getCardId() {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-private String cardId;
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	
+	
+
+
+
 	
 	
 

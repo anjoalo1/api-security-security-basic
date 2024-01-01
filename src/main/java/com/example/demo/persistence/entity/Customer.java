@@ -22,6 +22,7 @@ public class Customer {
 	private Long numberCellPhone;
 	private Integer active;
 	private String password;
+	private String rol;
 	
 	
 	public String getCardId() {
@@ -60,6 +61,14 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	
+	
 	
 	
 	

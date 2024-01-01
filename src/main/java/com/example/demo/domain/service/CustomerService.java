@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.pojo.CustomerPojo;
@@ -42,12 +43,25 @@ public class CustomerService implements ICustomerService{
 	@Override
 	public ResponseCustomerPojo save(CustomerPojo customerPojo) {
 		// TODO Auto-generated method stub
-		String passwordGenerated = generateRandomPassword(8);
-		customerPojo.setPassword(passwordGenerated);
-		customerPojo.setActive(1);
-		iCustomerRepository.save(customerPojo);
-		//ResponseCustomerPojo responseCustomerPojo = new ResponseCustomerPojo(passwordGenerated);
-		return new ResponseCustomerPojo(passwordGenerated);
+		
+		Optional<CustomerPojo> consulta = iCustomerRepository.getCustomerByEmail(customerPojo.getEmail());
+		
+		if(!consulta.isEmpty()) {
+			return new ResponseCustomerPojo("NO se pudo genera el usuario");
+		}else {
+			
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String passwordGenerated = generateRandomPassword(8);
+			customerPojo.setPassword(passwordEncoder.encode(customerPojo.getPassword()));
+			customerPojo.setActive(1);
+			customerPojo.setRol("USER");
+			iCustomerRepository.save(customerPojo);
+			//ResponseCustomerPojo responseCustomerPojo = new ResponseCustomerPojo(passwordGenerated);
+			return new ResponseCustomerPojo(passwordGenerated);
+			
+		}
+		
+		
 	}
 	
 	
